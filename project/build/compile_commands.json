@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/bvgastel/dev/assignment3/project/build",
-  "command": "/usr/bin/clang++     -Wall -O2 -g -g   -std=gnu++14 -o CMakeFiles/memory.dir/main.cpp.o -c /home/bvgastel/dev/assignment3/project/main.cpp",
-  "file": "/home/bvgastel/dev/assignment3/project/main.cpp"
-}
-]
