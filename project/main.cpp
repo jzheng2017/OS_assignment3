@@ -18,8 +18,8 @@
 using namespace std;
 
 // size of the image
-const int64_t SIZE = 524288ULL;
-const int64_t REPEAT = 2ULL;
+const int64_t SIZE = 16384ULL;
+const int64_t REPEAT = 1ULL;
 
 int main(int argc, char* argv[]) {
 	float* res = new float[SIZE * SIZE];  // result of mean filter
@@ -28,24 +28,31 @@ int main(int argc, char* argv[]) {
 	// fill with dummy data
 	for (int64_t i = 0; i < SIZE; i++) {
 		for (int64_t j = 0; j < SIZE; j++) {
-			img[j * SIZE + i] = (2 * j + i) % 8196;
+			img[j * SIZE + i] = (2 * j + i) % 32768;
 		}
 	}
 
 	// do the filter
+	uint64_t dummy = 0;
 	for (int64_t r = 0; r < REPEAT; ++r) {
 		for (int64_t i = 1; i < SIZE - 1; i++) {
 			for (int64_t j = 1; j < SIZE - 1; j++) {
 				res[j * SIZE + i] = 0;
-				for (int k = -1; k < 2; k++) {
-					for (int l = -1; l < 2; l++) {
+				for (long k = -1; k < 2; k++) {
+					for (long l = -1; l < 2; l++) {
 						res[j * SIZE + i] += img[(j + l) * SIZE + i + k];
 					}
 				}
 				res[j * SIZE + i] /= 9;
 			}
 		}
+		for (int64_t i = 1; i < SIZE - 1; i++) {
+			for (int64_t j = 1; j < SIZE - 1; j++) {
+				dummy += res[j * SIZE + i];
+			}
+		}
 	}
+
 
 	delete[] img;
 	delete[] res;
@@ -59,6 +66,7 @@ int main(int argc, char* argv[]) {
 	std::cout << "max memory:                   " << usage.ru_maxrss << " KiB" << std::endl;
 	std::cout << "voluntary context switches:   " << usage.ru_nvcsw << std::endl;
 	std::cout << "involuntary context switches: " << usage.ru_nivcsw << std::endl;
+	std::cout << "dummy value (ignore):         " << dummy << std::endl; // this value is printed to avoid optimisations
 	// ...
 	return 0;
 }
