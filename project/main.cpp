@@ -30,8 +30,12 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
-	// do the filter
+	// this dummy value is needed to avoid compilers eliminating the loop as part of a optimisation
 	uint64_t dummy = 0;
+
+	// ADJUST BELOW, BUT keep writing to the dummy variable
+	
+	// do the filter
 	for (int64_t r = 0; r < REPEAT; ++r) {
 		for (int64_t i = 1; i < SIZE - 1; i++) {
 			for (int64_t j = 1; j < SIZE - 1; j++) {
@@ -44,6 +48,7 @@ int main(int argc, char* argv[]) {
 				res[j * SIZE + i] /= 9;
 			}
 		}
+
 		for (int64_t i = 1; i < SIZE - 1; i++) {
 			for (int64_t j = 1; j < SIZE - 1; j++) {
 				dummy += res[j * SIZE + i];
@@ -51,6 +56,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	// ADJUST ABOVE, BUT keep writing to the dummy variable
 
 	delete[] img;
 	delete[] res;
@@ -61,7 +67,11 @@ int main(int argc, char* argv[]) {
 	std::cout << "user time:                    " << usage.ru_utime.tv_sec << "." << std::fixed << std::setw(6) << std::setprecision(6) << std::setfill('0') << usage.ru_utime.tv_usec << " s" << std::endl;
 	std::cout << "soft page faults:             " << usage.ru_minflt << std::endl;
 	std::cout << "hard page faults:             " << usage.ru_majflt << std::endl;
+#ifdef __APPLE__
+	std::cout << "max memory:                   " << usage.ru_maxrss/1024 << " KiB" << std::endl;
+#else
 	std::cout << "max memory:                   " << usage.ru_maxrss << " KiB" << std::endl;
+#endif
 	std::cout << "voluntary context switches:   " << usage.ru_nvcsw << std::endl;
 	std::cout << "involuntary context switches: " << usage.ru_nivcsw << std::endl;
 	std::cout << "dummy value (ignore):         " << dummy << std::endl; // this value is printed to avoid optimisations
