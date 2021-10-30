@@ -39,21 +39,6 @@ int main(int argc, char *argv[])
 
 	// ADJUST BELOW, BUT keep writing to the dummy variable
 
-	// struct pixel {
-	// 	float val;
-	// 	float *adjacent_pixels = new float[8];
-	// };
-
-    // vector<pixel> image;
-
-	// for (int64_t i = 0; i < SIZE; i++)
-	// {
-	// 	for (int64_t j = 0; j < SIZE; j++)
-	// 	{
-	// 		pixel 
-	// 		img[j * SIZE + i]
-	// 	}
-	// }
 	// Apply an averaging imaging filter to some input image, and write in to an output image.
 	// A pixel in the output image is calculated by averaging 9 pixels: the pixel at the same
 	// coordinates in the input image, and the adjecent pixels.
