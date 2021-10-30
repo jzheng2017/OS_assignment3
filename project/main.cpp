@@ -47,10 +47,11 @@ int main(int argc, char *argv[])
 
 	for (int64_t r = 0; r < REPEAT; ++r)
 	{
-		for (int64_t i = 1; i < SIZE - 1; i++)
+		for (int64_t j = 1; j < SIZE - 1; j++)
 		{
-			for (int64_t j = 1; j < SIZE - 1; j++)
+			for (int64_t i = 1; i < SIZE - 1; i++)
 			{
+
 				float tmp = 0;
 
 				tmp += img[(j - 1) * SIZE + i - 1];
@@ -64,30 +65,11 @@ int main(int argc, char *argv[])
 				tmp += img[(j + 1) * SIZE + i + 1];
 
 				tmp /= 9;
-				res_1[j-1][i-1] = tmp;
-				dummy += tmp;
+				dummy += res_1[j - 1][i - 1] = tmp;
 			}
 		}
 	}
-// for (int64_t r = 0; r < REPEAT; ++r) {
-// 		for (int64_t i = 1; i < SIZE - 1; i++) {
-// 			for (int64_t j = 1; j < SIZE - 1; j++) {
-// 				res[j * SIZE + i] = 0;
-// 				for (long k = -1; k < 2; k++) {
-// 					for (long l = -1; l < 2; l++) {
-// 						res[j * SIZE + i] += img[(j + l) * SIZE + i + k];
-// 					}
-// 				}
-// 				res[j * SIZE + i] /= 9;
-// 			}
-// 		}
 
-// 		for (int64_t i = 1; i < SIZE - 1; i++) {
-// 			for (int64_t j = 1; j < SIZE - 1; j++) {
-// 				dummy += res[j * SIZE + i];
-// 			}
-// 		}
-// 	}
 	// ADJUST ABOVE, BUT keep writing to the dummy variable
 
 	delete[] img;
