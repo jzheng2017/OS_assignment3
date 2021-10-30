@@ -39,10 +39,11 @@ int main(int argc, char *argv[])
 
 	// ADJUST BELOW, BUT keep writing to the dummy variable
 
+	float res_1[SIZE][SIZE];
+
 	// Apply an averaging imaging filter to some input image, and write in to an output image.
 	// A pixel in the output image is calculated by averaging 9 pixels: the pixel at the same
 	// coordinates in the input image, and the adjecent pixels.
-	float res_1[SIZE][SIZE];
 
 	for (int64_t r = 0; r < REPEAT; ++r)
 	{

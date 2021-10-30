@@ -21,7 +21,9 @@ A good example of these details is for instance the memory access delays caused 
 The final remark is that performance analysis of algorithms would be more accurate and interesting if it was applied to real computers and real situations and not just “toys” like the authors likes to call it. 
 
 ### Reasoning design choice B-Heap
-TODO
+**NOT CORRECT YET**
+
+One of the major reasons why the B-Heap is so much faster than the 'normal' binary heap structure is because when you traverse the tree vertically you will not necessarily be in a new page. To maintain this behaviour the first generation can not expand. If they do then the amount of nodes in the page will not be a perfect power of two in such a way that vertical tree traversal will be inside the same page.
 
 ## OS Configurations
 ### Host
@@ -87,4 +89,4 @@ We have not changed the default value of these variable because using these conf
 | dummy value (ignore):         | 549755813888                   |
 
 ## Remaining page faults
-It is not possible to completely remove all page faults. This is because of the nested for loop at line 27-31. We are not allowed to change this piece of code which is largely the cause of the remaining page faults. The for loop is 'jumping' through the array and assigning a value to it. The distance between these two memory locations each jump may be very big and therefore not be in memory at the time which will cause page faults. This happens often enough because it is jumping `SIZE * SIZE` number of times, which causes a lot of page faults.
+It is not possible to completely remove all page faults. This is because of the nested for loop at line 27-31. We are not allowed to change this piece of code which is largely the cause of the remaining page faults. The for loop is 'jumping' through the array and assigning a value to it. The distance between these two memory locations each jump may be very big and therefore not be in memory at the time which will cause page faults. This happens often enough because it is jumping `SIZE * SIZE` number of times, which causes a lot of page faults. To fix this, a similar datastructure could be used as the one for `res` which is using a 2D array.
