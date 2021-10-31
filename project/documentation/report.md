@@ -20,10 +20,11 @@ A good example for these details is the memory access delays caused by virtual m
 
 The final remark is that performance analysis of algorithms would be more accurate and interesting if it was applied to real computers and real situations and not just “toys” like the authors likes to call it. 
 
-### Reasoning design choice B-Heap
-**NOT CORRECT YET**
+### Reason behind the B-Heap design choice
 
-One of the major reasons why the B-Heap is so much faster than the 'normal' binary heap structure is because when you traverse the tree vertically you will not necessarily be in a new page. To maintain this behaviour the first generation can not expand. If they do then the amount of nodes in the page will not be a perfect power of two in such a way that vertical tree traversal will be inside the same page.
+One of the major reasons why the B-Heap has better performance than the normal binary heap structure is because when we compare children with their parent, it is not necessary to go to a new page. There are mainly 3 reasons why the first generation of elements in a B-Heap page do not expand. First, the reason why it has better performace is the design allows multiple generations to live in the same VM page; as you can see, B-Heap design does let multiple generations stay in the same page. Second, for the given page size, one page can hold maximally 8 nodes, if we use normal binary heap, one page can at most contain 6 nodes, thus, two spots would be wasted; however, with the first-generation-not-expand design, 8 spots in a page would be fully utilized. Third, one might ask why don't we just let all the nodes have only one child? That way we can have even more generations stayed in one page. The answer is a heap where every node only has one child is a linked list. Hence, to maintain a heap structure, first generation do not expand, is the best solution.
+
+
 
 ## OS Configurations
 ### Host
